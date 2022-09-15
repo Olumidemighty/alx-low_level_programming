@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "main.h"
 
 /**
  * main - prints prime numbers
@@ -18,5 +19,5 @@ int main(void)
 	}
 	printf("%ld\n", py);
 
-	return (0)
+	return (0);
 }

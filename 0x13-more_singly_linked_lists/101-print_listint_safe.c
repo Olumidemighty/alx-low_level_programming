@@ -1,11 +1,11 @@
 #include "lists.h"
 #include <stdio.h>
-
 /** 
  * print_listint_safe - print a linked list only one time
  * @head: head of LL
  * Return: counter of nodes & prints an error if the linked list is a circle
  */
+
 size_t print_listint_safe(const listint_t *head)
 {
 	const listint_t *slow, *fast, *marker;

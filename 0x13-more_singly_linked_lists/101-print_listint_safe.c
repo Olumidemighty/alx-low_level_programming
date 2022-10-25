@@ -1,40 +1,41 @@
 #include "lists.h"
+#include <stdio.h>
 
-/**
- * free_listint_safe - frees a linked list
- * @h: pointer to the first node in the linked list
- *
- * Return: number of elements in the freed list
+/** 
+ * print_listint_safe - print a linked list only one time
+ * @head: head of LL
+ * Return: counter of nodes & prints an error if the linked list is a circle
  */
-size_t free_listint_safe(listint_t **h)
+size_t print_listint_safe(const listint_t *head)
 {
-	size_t len = 0;
-	int diff;
-	listint_t *temp;
+	const listint_t *slow, *fast, *marker;
+	unsigned int counter = 0, flag = 0;
 
-	if (!h || !*h)
+	if (head == NULL)
 		return (0);
-
-	while (*h)
+	marker = slow = head;
+	fast = head->next;
+	while (head != NULL)
 	{
-		diff = *h - (*h)->next;
-		if (diff > 0)
+		printf("[%p] %d\n", (void *)head, head->n);
+		head = head->next;
+		counter++;
+
+		if (flag == 0 && fast != NULL && fast->next != NULL && slow != NULL)
 		{
-			temp = (*h)->next;
-			free(*h);
-			*h = temp;
-			len++;
+			if (fast == slow)
+			{
+				flag = 1;
+				slow = marker;
+			}
+			fast = fast->next->next;
 		}
-		else
+		if (flag == 1 && slow == head)
 		{
-			free(*h);
-			*h = NULL;
-			len++;
+			printf("-> [%p] %d\n", (void *)head, head->n);
 			break;
 		}
+		slow = slow->next;
 	}
-
-	*h = NULL;
-
-	return (len);
+	return (counter);
 }
